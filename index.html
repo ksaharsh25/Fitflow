@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitFlow Premium</title>
+  <style>
+    :root{
+      --bg:#050816;
+      --bg2:#0b1224;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.10);
+      --line:rgba(255,255,255,.12);
+      --text:#eef4ff;
+      --muted:#9aa8c7;
+      --accent:#28d36b;
+      --accent2:#5ef0a0;
+      --accent3:#7c5cff;
+      --shadow:0 24px 80px rgba(0,0,0,.35);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    html,body{margin:0;padding:0}
+    body{
+      min-height:100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(40,211,107,.22), transparent 25%),
+        radial-gradient(circle at 85% 10%, rgba(124,92,255,.18), transparent 22%),
+        radial-gradient(circle at 50% 80%, rgba(94,240,160,.10), transparent 25%),
+        linear-gradient(135deg, var(--bg2), var(--bg));
+      overflow-x:hidden;
+    }
+
+    .wrap{
+      width:min(1200px, calc(100% - 24px));
+      margin:0 auto;
+      position:relative;
+      z-index:2;
+    }
+
+    .blob{
+      position:fixed;
+      width:380px;
+      height:380px;
+      border-radius:50%;
+      filter:blur(70px);
+      opacity:.22;
+      z-index:0;
+      pointer-events:none;
+    }
+    .blob.b1{background:#28d36b; top:-120px; left:-120px;}
+    .blob.b2{background:#7c5cff; top:10%; right:-140px;}
+    .blob.b3{background:#36d6ff; bottom:-180px; left:25%; opacity:.10;}
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(5,8,22,.72);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .topbar-inner{
+      width:min(1200px, calc(100% - 24px));
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:inherit;
+    }
+    .brand-mark{
+      width:44px;height:44px;border-radius:14px;
+      display:grid;place-items:center;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color:#032111;font-weight:900;
+      box-shadow: 0 10px 30px rgba(40,211,107,.25);
+      flex:0 0 auto;
+    }
+    .brand-name{font-size:18px;font-weight:800;line-height:1}
+    .brand-sub{font-size:12px;color:var(--muted);margin-top:4px}
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .pill-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .pill{
+      font-size:12px;
+      color:#dbe6ff;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      padding:8px 12px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+    .pill.active{
+      background:rgba(40,211,107,.14);
+      border-color:rgba(40,211,107,.24);
+      color:#ecfff3;
+    }
+
+    .top-cta{
+      border:none;
+      cursor:pointer;
+      border-radius:999px;
+      padding:10px 14px;
+      font-weight:800;
+      font-size:13px;
+      color:#041e12;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow:0 14px 32px rgba(40,211,107,.18);
+    }
+
+    .hero{
+      padding:28px 0 16px;
+      display:grid;
+      grid-template-columns: 1.35fr .95fr;
+      gap:18px;
+      align-items:stretch;
+    }
+
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .hero-main{
+      padding:34px;
+      position:relative;
+      min-height: 420px;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:#dffbea;
+      background:rgba(40,211,107,.11);
+      border:1px solid rgba(40,211,107,.25);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:13px;
+      margin-bottom:18px;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(2.2rem, 4vw, 4.4rem);
+      line-height:1.02;
+      letter-spacing:-.04em;
+      max-width:12ch;
+    }
+
+    .lead{
+      margin:18px 0 0;
+      color:var(--muted);
+      font-size:1.03rem;
+      line-height:1.7;
+      max-width:56ch;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:26px;
+    }
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      border-radius:16px;
+      padding:14px 18px;
+      font-weight:800;
+      font-size:15px;
+      transition:transform .15s ease, box-shadow .15s ease, opacity .15s ease, background .15s ease;
+      width:auto;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn:active{transform:scale(.98)}
+    .btn-primary{
+      color:#041e12;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow:0 14px 32px rgba(40,211,107,.22);
+    }
+    .btn-secondary{
+      color:var(--text);
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin-top:28px;
+    }
+
+    .stat{
+      padding:16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .stat-num{
+      font-size:1.25rem;
+      font-weight:900;
+      letter-spacing:-.02em;
+      margin-top:8px;
+    }
+    .stat-label{color:var(--muted);font-size:.92rem}
+
+    .hero-side{
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .mini-card{
+      padding:18px;
+      border-radius:22px;
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+    }
+
+    .mini-title{
+      font-size:.9rem;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+    .mini-value{
+      font-size:1.35rem;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+    .mini-desc{
+      color:var(--muted);
+      font-size:.92rem;
+      line-height:1.6;
+      margin-top:8px;
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .section{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:18px;
+      align-items:start;
+    }
+
+    .section-card{
+      padding:24px;
+    }
+
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:16px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size:1.5rem;
+      letter-spacing:-.03em;
+    }
+    .muted{color:var(--muted)}
+
+    .progress-wrap{
+      width:100%;
+      height:12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.08);
+      overflow:hidden;
+      margin:16px 0 18px;
+    }
+    .progress{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg, var(--accent), var(--accent2));
+      transition:width .25s ease;
+      border-radius:999px;
+    }
+
+    .question{
+      padding:22px;
+      border-radius:24px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      min-height:290px;
+    }
+
+    .question-tag{
+      color:#d5e5ff;
+      font-size:.85rem;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+    .question-text{
+      margin:10px 0 0;
+      font-size:1.6rem;
+      line-height:1.18;
+      letter-spacing:-.03em;
+    }
+
+    .option{
+      display:block;
+      width:100%;
+      text-align:left;
+      margin-top:12px;
+      padding:14px 16px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      cursor:pointer;
+      font-size:15px;
+      transition:all .15s ease;
+    }
+    .option:hover{
+      background:rgba(40,211,107,.10);
+      border-color:rgba(40,211,107,.35);
+      transform:translateY(-1px);
+      box-shadow:0 12px 30px rgba(34,197,94,0.18);
+    }
+    .option.active{
+      background:rgba(40,211,107,.16);
+      border-color:rgba(40,211,107,.55);
+      box-shadow:0 0 0 1px rgba(40,211,107,.12) inset;
+    }
+
+    .input{
+      width:100%;
+      margin-top:12px;
+      padding:14px 16px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      outline:none;
+      font-size:15px;
+    }
+    .input::placeholder{color:#6f7f9e}
+
+    .controls{
+      display:flex;
+      gap:12px;
+      margin-top:16px;
+    }
+    .controls .btn{flex:1}
+
+    .summary-list{
+      display:grid;
+      gap:12px;
+    }
+    .summary{
+      padding:16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .summary small{display:block;color:var(--muted);margin-bottom:6px}
+    .summary strong{font-size:1.02rem}
+
+    .hide{display:none !important;}
+
+    .loading-box{
+      padding:32px 24px;
+      text-align:center;
+    }
+    .loading-emoji{
+      width:72px;height:72px;
+      margin:0 auto 16px;
+      border-radius:24px;
+      display:grid;
+      place-items:center;
+      background:rgba(40,211,107,.12);
+      border:1px solid rgba(40,211,107,.22);
+      font-size:28px;
+      animation:pulse 1.2s infinite;
+    }
+
+    .result-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:18px;
+      margin-top:18px;
+    }
+    .result-card{
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .kpi{
+      font-size:2rem;
+      font-weight:900;
+      letter-spacing:-.04em;
+      margin-top:6px;
+    }
+    .list{
+      margin:0;
+      padding-left:18px;
+      color:#dfe9ff;
+      line-height:1.8;
+      font-size:.96rem;
+    }
+    .day{
+      padding:14px 16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+      margin-top:10px;
+    }
+    .day-title{
+      color:#cfe0ff;
+      font-weight:800;
+      margin-bottom:4px;
+    }
+    .day-text{color:var(--muted);line-height:1.7;font-size:.95rem}
+
+    .footer-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .phone-frame{
+      border-radius:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .phone-screen{
+      padding:18px;
+    }
+    .phone-preview{
+      border-radius:24px;
+      padding:18px;
+      background:
+        linear-gradient(180deg, rgba(40,211,107,.16), rgba(255,255,255,.05)),
+        rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      min-height: 238px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .preview-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+    .preview-badge{
+      display:inline-block;
+      padding:7px 11px;
+      border-radius:999px;
+      background:rgba(40,211,107,.16);
+      border:1px solid rgba(40,211,107,.24);
+      color:#dffbea;
+      font-size:12px;
+      font-weight:700;
+    }
+    .preview-title{
+      font-size:1.15rem;
+      font-weight:900;
+      letter-spacing:-.02em;
+      margin-top:8px;
+    }
+    .preview-sub{
+      color:var(--muted);
+      font-size:.94rem;
+      line-height:1.6;
+      margin-top:8px;
+    }
+    .preview-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:16px;
+    }
+    .preview-kpi{
+      background:rgba(5,8,22,.45);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:18px;
+      padding:14px;
+    }
+    .preview-kpi span{
+      display:block;
+      color:var(--muted);
+      font-size:.82rem;
+      margin-bottom:6px;
+    }
+    .preview-kpi strong{
+      font-size:1.1rem;
+    }
+
+    .print-only{display:none}
+
+    @keyframes pulse {
+      0% {transform:scale(1);}
+      50% {transform:scale(1.08);}
+      100% {transform:scale(1);}
+    }
+
+    @media (max-width: 960px){
+      .hero, .section, .result-grid{grid-template-columns:1fr}
+      .hero-main{min-height:auto}
+      .hero-stats{grid-template-columns:1fr}
+      .grid2{grid-template-columns:1fr}
+      .topbar-inner{flex-direction:column; align-items:flex-start}
+      .nav-actions{width:100%;justify-content:flex-start}
+      .pill-row{justify-content:flex-start}
+      .hero-actions, .controls, .footer-actions{flex-direction:column}
+      .btn,.top-cta{width:100%}
+    }
+
+    @media print{
+      body{background:#fff;color:#000}
+      .topbar, .hero, .section, .loading-box, .footer-actions, .phone-frame, .blob, .no-print{display:none !important}
+      .print-only{
+        display:block;
+        color:#000;
+        padding:24px;
+      }
+      .print-only h1, .print-only h2, .print-only h3, .print-only p, .print-only li, .print-only div{
+        color:#000 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <div class="topbar no-print">
+    <div class="topbar-inner">
+      <a href="#" class="brand" onclick="scrollToTop(); return false;">
+        <div class="brand-mark">F</div>
+        <div>
+          <div class="brand-name">FitFlow</div>
+          <div class="brand-sub">Premium fitness web app</div>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <div class="pill-row">
+          <span class="pill">BMI + plan</span>
+          <span class="pill">7-day diet</span>
+          <span class="pill">PDF export</span>
+        </div>
+        <button class="top-cta" onclick="startQuiz()">Start Quiz</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap no-print">
+    <section class="hero">
+      <div class="panel hero-main">
+        <div class="eyebrow">⚡ Designed to feel premium and interactive</div>
+        <h1>Get your fitness plan in 60 seconds.</h1>
+        <p class="lead">
+          A client-ready web app that gives users a polished experience: quiz flow, BMI result, 7-day diet, 7-day workout, and a print-to-PDF button.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="startQuiz()">Start Now</button>
+          <button class="btn btn-secondary" onclick="scrollToApp()">See App Preview</button>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-label">Engagement</div>
+            <div class="stat-num">Chat-style quiz</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Output</div>
+            <div class="stat-num">Personal plan</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Conversion</div>
+            <div class="stat-num">PDF + WhatsApp</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-preview">
+            <div>
+              <div class="preview-top">
+                <span class="preview-badge">Live preview</span>
+                <span class="pill" style="padding:7px 10px;">App-like</span>
+              </div>
+              <div class="preview-title">A clean, premium fitness dashboard</div>
+              <div class="preview-sub">This is the visual style your client will see: modern cards, gradient accents, and a guided flow from start to finish.</div>
+            </div>
+            <div class="preview-grid">
+              <div class="preview-kpi">
+                <span>Fitness score</span>
+                <strong>92 / 100</strong>
+              </div>
+              <div class="preview-kpi">
+                <span>BMI</span>
+                <strong>22.4</strong>
+              </div>
+              <div class="preview-kpi">
+                <span>Plan</span>
+                <strong>Fat Loss</strong>
+              </div>
+              <div class="preview-kpi">
+                <span>CTA</span>
+                <strong>Download PDF</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="appSection" class="section hide">
+      <div class="panel section-card">
+        <div class="section-head">
+          <div>
+            <h2>Interactive Quiz</h2>
+            <div class="muted">One question at a time, like a real product.</div>
+          </div>
+          <div class="pill"><span id="stepNow">1</span> / <span id="stepTotal">5</span></div>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress" id="progressBar"></div>
+        </div>
+
+        <div class="question">
+          <div class="question-tag" id="questionTag">Step 1</div>
+          <div class="question-text" id="questionText">Loading...</div>
+          <div id="answerArea"></div>
+        </div>
+
+        <div class="controls">
+          <button class="btn btn-secondary" onclick="goBack()">Back</button>
+          <button class="btn btn-primary" onclick="nextStep()" id="nextBtn" disabled>Next</button>
+        </div>
+      </div>
+
+      <div class="panel section-card">
+        <div class="section-head">
+          <div>
+            <h2>Live summary</h2>
+            <div class="muted">Updates as the user answers.</div>
+          </div>
+        </div>
+
+        <div class="summary-list">
+          <div class="summary">
+            <small>Goal</small>
+            <strong id="sumGoal">—</strong>
+          </div>
+          <div class="summary">
+            <small>Age group</small>
+            <strong id="sumAge">—</strong>
+          </div>
+          <div class="summary">
+            <small>Weight</small>
+            <strong id="sumWeight">—</strong>
+          </div>
+          <div class="summary">
+            <small>Height</small>
+            <strong id="sumHeight">—</strong>
+          </div>
+          <div class="summary">
+            <small>Time per day</small>
+            <strong id="sumTime">—</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="loadingSection" class="panel loading-box hide" style="margin-top:18px;">
+      <div class="loading-emoji">⚙️</div>
+      <h2 style="margin:0;font-size:1.7rem;letter-spacing:-.03em;">Creating your personalized plan</h2>
+      <p class="muted" style="margin:10px 0 0;">This animation makes the app feel smarter and more premium.</p>
+      <div class="progress-wrap" style="max-width:520px;margin:22px auto 0;">
+        <div class="progress" id="loadingBar"></div>
+      </div>
+    </section>
+
+    <section id="resultSection" class="section hide">
+      <div class="panel section-card">
+        <div class="section-head">
+          <div>
+            <h2>Your premium result</h2>
+            <div class="muted">Fitness score, BMI, diet and workout in one dashboard.</div>
+          </div>
+          <div class="pill" id="resultBadge">Ready</div>
+        </div>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="muted">Fitness score</div>
+            <div class="kpi" id="fitnessScore">—</div>
+          </div>
+          <div class="result-card">
+            <div class="muted">BMI</div>
+            <div class="kpi" id="bmiValue">—</div>
+          </div>
+          <div class="result-card">
+            <div class="muted">Plan type</div>
+            <div class="kpi" id="planType">—</div>
+          </div>
+          <div class="result-card">
+            <div class="muted">Daily time</div>
+            <div class="kpi" id="dailyTime">—</div>
+          </div>
+        </div>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="muted">7-day diet plan</div>
+            <div id="dietPlan"></div>
+          </div>
+          <div class="result-card">
+            <div class="muted">7-day workout plan</div>
+            <div id="workoutPlan"></div>
+          </div>
+        </div>
+
+        <div class="footer-actions">
+          <button class="btn btn-primary" onclick="downloadPDF()">Download PDF</button>
+          <button class="btn btn-secondary" onclick="window.open('https://wa.me/919876543210?text=I%20want%20my%20fitness%20plan','_blank')">Chat on WhatsApp</button>
+          <button class="btn btn-secondary" onclick="restartApp()">Try again</button>
+        </div>
+      </div>
+
+    
+
+  <div class="wrap print-only">
+    <h1>FitFlow Premium Plan</h1>
+    <p id="printMeta"></p>
+    <h2>Fitness score</h2>
+    <p id="printScore"></p>
+    <h2>BMI</h2>
+    <p id="printBmi"></p>
+    <h2>Plan type</h2>
+    <p id="printPlan"></p>
+    <h2>7-day diet plan</h2>
+    <div id="printDiet"></div>
+    <h2>7-day workout plan</h2>
+    <div id="printWorkout"></div>
+  </div>
+
+  <script>
+    var questions = [
+      { key: "goal", label: "Step 1", text: "What is your goal?", type: "choice", options: ["Weight Loss", "Muscle Gain", "Yoga / Flexibility"] },
+      { key: "ageGroup", label: "Step 2", text: "What is your age group?", type: "choice", options: ["18–24", "25–40", "40+"] },
+      { key: "weight", label: "Step 3", text: "Enter your weight in kg", type: "input", placeholder: "e.g. 68" },
+      { key: "height", label: "Step 4", text: "Enter your height in cm", type: "input", placeholder: "e.g. 170" },
+      { key: "time", label: "Step 5", text: "How much time can you give daily?", type: "choice", options: ["15 min", "30 min", "60 min+"] }
+    ];
+
+    var dietPlans = {
+      "Weight Loss": [
+        "Day 1: Warm water, oats, roti + sabzi, green tea, soup",
+        "Day 2: Jeera water, poha, dal + roti, fruit, salad",
+        "Day 3: Lemon water, upma, brown rice + dal, coconut water, soup",
+        "Day 4: Warm water, sprouts, roti + sabzi, tea without sugar, salad",
+        "Day 5: Lemon water, oats, dal + rice, fruit, soup",
+        "Day 6: Jeera water, poha, roti + sabzi, green tea, salad",
+        "Day 7: Warm water, fruits, light khichdi, coconut water, soup"
+      ],
+      "Muscle Gain": [
+        "Day 1: Milk + banana, eggs or paneer, rice + dal, peanuts, roti + paneer",
+        "Day 2: Milk + dates, oats with milk, rice + chicken or paneer, chana, roti + dal",
+        "Day 3: Banana shake, eggs, rice + dal, peanut butter, paneer sabzi",
+        "Day 4: Milk + banana, poha, rice + dal, fruits, roti + paneer",
+        "Day 5: Milk + dates, oats, rice + dal, chana, paneer sabzi",
+        "Day 6: Banana shake, eggs, rice + dal, peanuts, roti + paneer",
+        "Day 7: Milk + banana, upma, rice + dal, fruits, roti + paneer"
+      ],
+      "Yoga / Flexibility": [
+        "Day 1: Warm water, fruits, khichdi, coconut water, light roti sabzi",
+        "Day 2: Lemon water, dry fruits, dal + rice, buttermilk, light sabzi",
+        "Day 3: Warm water, fruits, khichdi, coconut water, soup",
+        "Day 4: Lemon water, nuts, roti + dal, buttermilk, light sabzi",
+        "Day 5: Warm water, fruits, khichdi, coconut water, soup",
+        "Day 6: Lemon water, dry fruits, dal + rice, buttermilk, light sabzi",
+        "Day 7: Warm water, fruits, khichdi, coconut water, light dinner"
+      ]
+    };
+
+    var workoutPlans = {
+      "Weight Loss": [
+        "Day 1: Brisk walk 20 min + squats 3×12 + stretch",
+        "Day 2: Jumping jacks 3×30 sec + plank 3×20 sec + walk 15 min",
+        "Day 3: Step-ups 3×12 + mountain climbers 3×20 sec + yoga stretch",
+        "Day 4: Walk 25 min + lunges 3×10 + core routine",
+        "Day 5: Low-impact cardio 20 min + wall pushups 3×12 + stretch",
+        "Day 6: Cycling or walk 30 min + squat holds 3×20 sec + mobility",
+        "Day 7: Recovery walk + full-body stretching"
+      ],
+      "Muscle Gain": [
+        "Day 1: Pushups 3×10 + squats 3×15 + shoulder press movement",
+        "Day 2: Incline pushups 3×12 + lunges 3×12 + plank 3×30 sec",
+        "Day 3: Mobility + light walk",
+        "Day 4: Pushups 4×10 + squats 4×15 + bicycle crunches 3×20",
+        "Day 5: Chair dips 3×12 + glute bridge 3×15 + plank 3×30 sec",
+        "Day 6: Full body circuit: pushups, lunges, squats, plank",
+        "Day 7: Active recovery and stretching"
+      ],
+      "Yoga / Flexibility": [
+        "Day 1: Surya namaskar 5 rounds + breathing 5 min",
+        "Day 2: Hip openers + forward bends + spinal twist",
+        "Day 3: Gentle flow yoga + pranayama",
+        "Day 4: Balance poses + hamstring stretch + breathing",
+        "Day 5: Mobility flow + cat-cow + child pose",
+        "Day 6: Full-body stretching + meditation",
+        "Day 7: Restorative yoga and deep breathing"
+      ]
+    };
+
+    var currentStep = 0;
+    var answers = {};
+    var selectedOption = null;
+
+    var appSection = document.getElementById("appSection");
+    var loadingSection = document.getElementById("loadingSection");
+    var resultSection = document.getElementById("resultSection");
+    var questionTag = document.getElementById("questionTag");
+    var questionText = document.getElementById("questionText");
+    var answerArea = document.getElementById("answerArea");
+    var nextBtn = document.getElementById("nextBtn");
+    var stepNow = document.getElementById("stepNow");
+    var stepTotal = document.getElementById("stepTotal");
+    var progressBar = document.getElementById("progressBar");
+    var loadingBar = document.getElementById("loadingBar");
+
+    stepTotal.textContent = questions.length;
+
+    function scrollToTop(){
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function scrollToApp(){
+      appSection.classList.remove("hide");
+      appSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function startQuiz(){
+      appSection.classList.remove("hide");
+      loadingSection.classList.add("hide");
+      resultSection.classList.add("hide");
+      currentStep = 0;
+      answers = {};
+      selectedOption = null;
+      renderStep();
+      updateSummary();
+      appSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function renderStep(){
+      var q = questions[currentStep];
+      stepNow.textContent = currentStep + 1;
+      progressBar.style.width = ((currentStep / questions.length) * 100) + "%";
+      questionTag.textContent = q.label;
+      questionText.textContent = q.text;
+      selectedOption = answers[q.key] || null;
+      nextBtn.disabled = !selectedOption;
+      answerArea.innerHTML = "";
+
+      if(q.type === "choice"){
+        for(var i=0; i<q.options.length; i++){
+          (function(opt){
+            var btn = document.createElement("button");
+            btn.className = "option" + (selectedOption === opt ? " active" : "");
+            btn.type = "button";
+            btn.textContent = opt;
+            btn.onclick = function(){
+              answers[q.key] = opt;
+              selectedOption = opt;
+              nextBtn.disabled = false;
+              updateSummary();
+              renderStep();
+            };
+            answerArea.appendChild(btn);
+          })(q.options[i]);
+        }
+      } else {
+        var input = document.createElement("input");
+        input.className = "input";
+        input.type = "number";
+        input.placeholder = q.placeholder || "";
+        input.value = answers[q.key] || "";
+        input.oninput = function(){
+          var v = input.value;
+          answers[q.key] = v;
+          selectedOption = v.trim() ? v : null;
+          nextBtn.disabled = !selectedOption;
+          updateSummary();
+        };
+        answerArea.appendChild(input);
+      }
+    }
+
+    function updateSummary(){
+      document.getElementById("sumGoal").textContent = answers.goal || "—";
+      document.getElementById("sumAge").textContent = answers.ageGroup || "—";
+      document.getElementById("sumWeight").textContent = answers.weight ? answers.weight + " kg" : "—";
+      document.getElementById("sumHeight").textContent = answers.height ? answers.height + " cm" : "—";
+      document.getElementById("sumTime").textContent = answers.time || "—";
+    }
+
+    function goBack(){
+      if(currentStep === 0) return;
+      currentStep--;
+      renderStep();
+      updateSummary();
+    }
+
+    function nextStep(){
+      var q = questions[currentStep];
+      if(!answers[q.key]){
+        alert("Please complete this step.");
+        return;
+      }
+      if(currentStep < questions.length - 1){
+        currentStep++;
+        renderStep();
+        updateSummary();
+        return;
+      }
+      startLoading();
+    }
+
+    function startLoading(){
+      appSection.classList.add("hide");
+      loadingSection.classList.remove("hide");
+      loadingBar.style.width = "0%";
+      var p = 0;
+      var timer = setInterval(function(){
+        p += 10;
+        loadingBar.style.width = p + "%";
+        if(p >= 100){
+          clearInterval(timer);
+          showResult();
+        }
+      }, 170);
+    }
+
+    function planKey(goal){
+      if(goal === "Weight Loss") return "Weight Loss";
+      if(goal === "Muscle Gain") return "Muscle Gain";
+      return "Yoga / Flexibility";
+    }
+
+    function showResult(){
+      loadingSection.classList.add("hide");
+      resultSection.classList.remove("hide");
+
+      var weight = parseFloat(answers.weight);
+      var height = parseFloat(answers.height) / 100;
+      var bmi = (weight / (height * height)).toFixed(1);
+      var bmiNum = parseFloat(bmi);
+
+      var planType = "Balanced Plan";
+      if(answers.goal === "Weight Loss") planType = "Fat Loss Plan";
+      else if(answers.goal === "Muscle Gain") planType = "Muscle Gain Plan";
+      else planType = "Yoga Flexibility Plan";
+
+      var score = Math.max(50, Math.min(99, Math.round(110 - bmiNum * 2)));
+
+      document.getElementById("fitnessScore").textContent = score + "/100";
+      document.getElementById("bmiValue").textContent = bmi;
+      document.getElementById("planType").textContent = planType;
+      document.getElementById("dailyTime").textContent = answers.time || "—";
+      document.getElementById("resultBadge").textContent = "Ready to export";
+      document.getElementById("progressBar").style.width = "100%";
+
+      renderPlans(planKey(answers.goal));
+
+      document.getElementById("printMeta").textContent =
+        "Goal: " + (answers.goal || "-") +
+        " | Age: " + (answers.ageGroup || "-") +
+        " | Weight: " + (answers.weight || "-") + " kg" +
+        " | Height: " + (answers.height || "-") + " cm" +
+        " | Time: " + (answers.time || "-");
+
+      document.getElementById("printScore").textContent = score + "/100";
+      document.getElementById("printBmi").textContent = bmi;
+      document.getElementById("printPlan").textContent = planType;
+      fillPrintSections(planKey(answers.goal));
+    }
+
+    function renderPlans(key){
+      var diet = dietPlans[key];
+      var workout = workoutPlans[key];
+      var dietBox = document.getElementById("dietPlan");
+      var workoutBox = document.getElementById("workoutPlan");
+      dietBox.innerHTML = "";
+      workoutBox.innerHTML = "";
+
+      for(var i=0; i<diet.length; i++){
+        var d = document.createElement("div");
+        d.className = "day";
+        d.innerHTML = '<div class="day-title">Day ' + (i+1) + '</div><div class="day-text">' + diet[i] + '</div>';
+        dietBox.appendChild(d);
+      }
+
+      for(var j=0; j<workout.length; j++){
+        var w = document.createElement("div");
+        w.className = "day";
+        w.innerHTML = '<div class="day-title">Day ' + (j+1) + '</div><div class="day-text">' + workout[j] + '</div>';
+        workoutBox.appendChild(w);
+      }
+    }
+
+    function fillPrintSections(key){
+      var printDiet = document.getElementById("printDiet");
+      var printWorkout = document.getElementById("printWorkout");
+      printDiet.innerHTML = "";
+      printWorkout.innerHTML = "";
+
+      var diet = dietPlans[key];
+      var workout = workoutPlans[key];
+
+      for(var i=0; i<diet.length; i++){
+        var div1 = document.createElement("div");
+        div1.textContent = "Day " + (i+1) + ": " + diet[i];
+        printDiet.appendChild(div1);
+      }
+      for(var j=0; j<workout.length; j++){
+        var div2 = document.createElement("div");
+        div2.textContent = "Day " + (j+1) + ": " + workout[j];
+        printWorkout.appendChild(div2);
+      }
+    }
+
+    function restartApp(){
+      currentStep = 0;
+      answers = {};
+      selectedOption = null;
+      resultSection.classList.add("hide");
+      loadingSection.classList.add("hide");
+      appSection.classList.add("hide");
+      document.getElementById("progressBar").style.width = "0%";
+      document.getElementById("loadingBar").style.width = "0%";
+      document.getElementById("fitnessScore").textContent = "—";
+      document.getElementById("bmiValue").textContent = "—";
+      document.getElementById("planType").textContent = "—";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function downloadPDF(){
+      window.print();
+    }
+
+    document.getElementById("stepTotal").textContent = questions.length;
+  </script>
+</body>
+</html>
