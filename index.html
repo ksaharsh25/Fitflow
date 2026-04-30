@@ -4,26 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ForgePeak | Elite Fitness & Recovery</title>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #050508;
-      --bg-alt: #0a0a0f;
-      --card: #11111a;
-      --accent: linear-gradient(135deg, #ff5b3f 0%, #ff2e7a 100%);
-      --accent-solid: #ff5b3f;
+      --bg: #000000;
+      --bg-alt: #0a0a0a;
+      --card: #141414;
+      --accent: linear-gradient(135deg, #ff3278 0%, #ff0f0f 100%);
+      --accent-solid: #ff3278;
       --text: #ffffff;
-      --text-dim: #9aa0b5;
-      --border: rgba(255, 255, 255, 0.08);
-      --radius-lg: 40px;
-      --radius-md: 24px;
-      --radius-sm: 16px;
-      --container-gap: 80px;
-      --header-height: 96px;
+      --text-dim: #a0a0a0;
+      --border: rgba(255,255,255,0.1);
+      --radius-lg: 32px;
+      --radius-md: 20px;
+      --header-height: 80px;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 120px; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Barlow', sans-serif;
       background-color: var(--bg);
@@ -32,965 +29,609 @@
       overflow-x: hidden;
       padding-top: var(--header-height);
     }
-
-    h1, h2, h3, h4, .heading {
+    h1,h2,h3,h4 {
       font-family: 'Barlow Condensed', sans-serif;
       text-transform: uppercase;
       font-weight: 900;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.01em;
     }
 
-    p {
-      font-size: clamp(16px, 1.1vw, 20px);
-      color: var(--text-dim);
-      line-height: 1.75;
-    }
-
-    a { color: inherit; }
-
-    .container {
-      width: min(1440px, 90%);
-      margin: 0 auto;
-    }
-
-    .section {
-      padding: clamp(100px, 12vw, 180px) 0;
-      scroll-margin-top: 120px;
-    }
-
-    .section-title {
-      line-height: 0.95;
-      letter-spacing: -0.04em;
-    }
-
-    /* Header */
+    /* HEADER */
     header {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      padding: 20px 0;
-      transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      top: 0; left: 0;
+      width: 100%; z-index: 1000;
+      background: transparent;
+      transition: background 0.3s, border 0.3s;
     }
-
     header.scrolled {
-      background: rgba(5, 5, 8, 0.88);
-      backdrop-filter: blur(20px);
-      padding: 14px 0;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
     }
-
     .nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
-      min-height: 56px;
+      height: var(--header-height);
+      padding: 0 5%;
     }
-
-    .logo {
-      font-size: 32px;
-      text-decoration: none;
-      color: white;
-      letter-spacing: 4px;
-      font-weight: 900;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
+    .logo { font-size: 28px; text-decoration: none; color: white; font-weight: 900; letter-spacing: 2px; }
     .logo span { color: var(--accent-solid); }
 
-    .nav-menu {
-      display: flex;
-      gap: 44px;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-    }
-
-    .nav-menu a {
-      text-decoration: none;
-      color: white;
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      opacity: 0.72;
-      transition: 0.3s;
-      white-space: nowrap;
-    }
-
-    .nav-menu a:hover {
-      opacity: 1;
-      color: var(--accent-solid);
-    }
-
-    /* Buttons */
+    /* BUTTONS */
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 22px 48px;
+      padding: 12px 28px;
       border-radius: 999px;
       border: none;
       font-weight: 800;
       cursor: pointer;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      transition: 0.35s;
+      font-size: 13px;
+      transition: transform 0.2s, background 0.2s;
       text-decoration: none;
-      font-size: 14px;
-      white-space: nowrap;
+      display: inline-block;
+      font-family: 'Barlow', sans-serif;
     }
+    .btn-primary { background: var(--accent); color: white; }
+    .btn-outline { background: transparent; border: 1px solid white; color: white; }
+    .btn-primary:hover { transform: scale(1.05); }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
 
-    .btn-primary {
-      background: var(--accent);
-      color: white;
-      box-shadow: 0 15px 35px rgba(255, 91, 63, 0.25);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 25px 50px rgba(255, 91, 63, 0.4);
-    }
-
-    .btn-outline {
-      background: transparent;
-      border: 2px solid var(--border);
-      color: white;
-    }
-
-    .btn-outline:hover {
-      border-color: white;
-      background: rgba(255,255,255,0.03);
-    }
-
-    .btn:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-      transform: none !important;
-      box-shadow: none !important;
-    }
-
-    /* Hero */
+    /* HERO */
     .hero {
-      min-height: calc(100vh - var(--header-height));
+      height: 85vh;
       display: flex;
       align-items: center;
-      background:
-        linear-gradient(rgba(5, 5, 8, 0.72), rgba(5, 5, 8, 0.72)),
-        url('https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&q=80&w=2000');
+      position: relative;
+      overflow: hidden;
+      padding: 0 5%;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2000');
       background-size: cover;
       background-position: center;
-      padding: 60px 0;
+      z-index: 0;
     }
+    .hero-content { position: relative; z-index: 2; }
+    .hero h1 { font-size: clamp(50px, 8vw, 120px); line-height: 0.9; margin-bottom: 20px; }
+    .hero p { max-width: 560px; color: #ccc; margin-bottom: 30px; font-size: 18px; }
+    .hero-btns { display: flex; gap: 15px; flex-wrap: wrap; }
 
-    .hero-h1 {
-      font-size: clamp(60px, 12vw, 160px);
-      line-height: 0.86;
-      margin-bottom: 30px;
+    /* VIDEO SECTION */
+    .video-section { padding: 90px 5%; background: #050505; }
+    .section-label {
+      font-size: 12px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 3px;
+      color: var(--accent-solid); margin-bottom: 12px;
     }
-
-    .hero-h1 span {
-      display: block;
-      color: transparent;
-      -webkit-text-stroke: 1.5px white;
-    }
-
-    /* Auto-Scrolling Gallery */
-    .marquee {
-      overflow: hidden;
-      padding: 40px 0;
-      background: var(--bg-alt);
-    }
-
-    .marquee-content {
-      display: flex;
-      gap: 30px;
-      width: max-content;
-      animation: scroll 60s linear infinite;
-    }
-
-    .marquee-card {
-      width: 400px;
-      height: 500px;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-
-    .marquee-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: 0.5s;
-      filter: grayscale(0.2);
-    }
-
-    .marquee-card:hover img {
-      transform: scale(1.05);
-      filter: grayscale(0);
-    }
-
-    @keyframes scroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    /* Expanded Grid Section */
-    .features-grid {
+    .section-title { font-size: clamp(36px,5vw,64px); margin-bottom: 50px; }
+    .video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-      gap: var(--container-gap);
-      margin-top: 80px;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      max-width: 1200px;
     }
-
-    .feature-item { text-align: left; }
-
-    .feature-img {
-      width: 100%;
-      height: 450px;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      margin-bottom: 35px;
-      border: 1px solid var(--border);
-    }
-
-    .feature-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .feature-item h3 {
-      font-size: 36px;
-      margin-bottom: 20px;
-    }
-
-    /* Quiz */
-    .quiz-bg {
-      background-color: var(--bg-alt);
+    .video-card {
       position: relative;
-    }
-
-    .quiz-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 100px;
-      align-items: start;
-    }
-
-    .quiz-card {
-      background: var(--card);
-      padding: clamp(30px, 5vw, 70px);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
-    }
-
-    .quiz-card h3 {
-      font-size: clamp(34px, 4vw, 52px);
-      line-height: 1.05;
-    }
-
-    .opt-btn {
-      width: 100%;
-      padding: 25px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
       border-radius: 20px;
-      color: white;
-      text-align: left;
-      cursor: pointer;
-      font-size: 17px;
-      font-weight: 600;
-      margin-bottom: 15px;
-      transition: 0.3s;
+      overflow: hidden;
+      background: #111;
     }
-
-    .opt-btn:hover {
-      transform: translateX(6px);
-      border-color: rgba(255, 91, 63, 0.5);
-      background: rgba(255, 91, 63, 0.08);
+    .video-card.main { height: 420px; }
+    .video-side { display: flex; flex-direction: column; gap: 20px; }
+    .video-card.small { height: 195px; }
+    .video-card img, .video-card video {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
     }
-
-    .opt-btn.active {
-      border-color: var(--accent-solid);
-      background: rgba(255, 91, 63, 0.1);
-      transform: translateX(10px);
-    }
-
-    .result-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-      margin-bottom: 22px;
-    }
-
-    .result-pill,
-    .tip-card,
-    .next-step-card,
-    .day-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-    }
-
-    .result-pill {
-      padding: 16px;
-    }
-
-    .result-pill p {
-      font-size: 12px;
-      margin-bottom: 4px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-    }
-
-    .result-pill strong {
-      color: white;
-      font-size: 18px;
-    }
-
-    .tip-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 24px;
-      margin-bottom: 22px;
-    }
-
-    .tip-card {
-      padding: 22px;
-    }
-
-    .tip-card h4 {
-      font-size: 22px;
-      margin-bottom: 12px;
-      color: white;
-      letter-spacing: -0.01em;
-    }
-
-    .tip-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent-solid);
-      margin-bottom: 14px;
-    }
-
-    .tip-list {
-      list-style: none;
-      display: grid;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .tip-list li {
-      color: var(--text-dim);
-      padding-left: 18px;
-      position: relative;
-      line-height: 1.6;
-    }
-
-    .tip-list li::before {
-      content: "•";
+    .video-label {
       position: absolute;
-      left: 0;
-      color: var(--accent-solid);
-      font-size: 18px;
-      line-height: 1;
-    }
-
-    .day-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .day-card {
-      padding: 16px 16px 18px;
-    }
-
-    .day-card h5 {
-      font-size: 14px;
-      color: var(--accent-solid);
-      letter-spacing: 2px;
+      bottom: 0; left: 0; right: 0;
+      padding: 20px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px; font-weight: 700;
       text-transform: uppercase;
-      margin-bottom: 8px;
     }
-
-    .day-card p {
-      font-size: 15px;
-      line-height: 1.65;
-      color: var(--text-dim);
+    .play-btn {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 54px; height: 54px;
+      background: rgba(255,50,120,0.85);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      border: none;
     }
+    .play-btn:hover { transform: translate(-50%,-50%) scale(1.1); background: var(--accent-solid); }
+    .play-btn svg { margin-left: 3px; }
 
-    .next-step-card {
-      padding: 22px;
-      margin-top: 16px;
+    /* QUIZ */
+    .quiz-section { padding: 100px 5%; background: var(--bg-alt); }
+    .quiz-container {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
     }
-
-    .next-step-card h4 {
-      font-size: 20px;
-      margin-bottom: 10px;
+    .quiz-card {
+      background: var(--card); padding: 40px;
+      border-radius: var(--radius-lg); border: 1px solid var(--border);
     }
-
-    .result-actions {
+    .opt-btn {
+      width: 100%; padding: 18px;
+      background: #1e1e1e; border: 1px solid transparent;
+      border-radius: 12px; color: white;
+      text-align: left; margin-bottom: 12px;
+      cursor: pointer; font-weight: 600; font-size: 15px;
+      transition: border-color 0.2s, background 0.2s;
+      font-family: 'Barlow', sans-serif;
+    }
+    .opt-btn:hover, .opt-btn.active {
+      border-color: var(--accent-solid);
+      background: rgba(255,50,120,0.1);
+    }
+    .plan-grid {
       display: grid;
-      gap: 12px;
-      margin-top: 24px;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+      gap: 15px; margin-top: 20px;
     }
-
-    .small-note {
-      font-size: 13px;
-      line-height: 1.7;
-      color: var(--text-dim);
-      margin-top: 14px;
+    .day-box {
+      background: #1a1a1a; padding: 15px;
+      border-radius: 12px; border-left: 4px solid var(--accent-solid);
     }
+    .day-box h5 { color: var(--accent-solid); margin-bottom: 5px; font-size: 13px; }
+    .day-box p { font-size: 13px; color: #ddd; }
 
-    footer {
-      padding: 100px 0 50px;
-      border-top: 1px solid var(--border);
-      background: linear-gradient(to bottom, rgba(10,10,15,0), rgba(10,10,15,0.6));
+    /* MODAL OVERLAY — works locally */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.92);
+      z-index: 99999;
+      overflow-y: auto;
+      padding: 40px 20px 60px;
     }
-
-    @media (max-width: 1200px) {
-      .nav-menu { gap: 32px; }
-      .quiz-wrapper { gap: 70px; }
-      .features-grid { gap: 50px; }
-      .tip-grid { grid-template-columns: 1fr; }
+    .modal-overlay.open { display: block; }
+    .modal-box {
+      background: var(--card);
+      width: 100%; max-width: 1000px;
+      margin: 0 auto;
+      border-radius: 24px; padding: 45px;
+      position: relative; border: 1px solid #222;
     }
-
-    @media (max-width: 1100px) {
-      .quiz-wrapper { grid-template-columns: 1fr; }
-      .nav-menu { display: none; }
-      .features-grid { grid-template-columns: 1fr; }
-      .result-grid { grid-template-columns: 1fr 1fr; }
+    .close-modal {
+      position: absolute; right: 22px; top: 18px;
+      background: #2a2a2a; border: none; color: white;
+      font-size: 20px; cursor: pointer;
+      width: 38px; height: 38px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; line-height: 1;
     }
+    .close-modal:hover { background: #3a3a3a; }
 
+    /* TRAINER CARDS */
+    .trainer-wrapper {
+      border: 1px solid #222; border-radius: 20px;
+      margin-bottom: 22px; overflow: hidden;
+    }
+    .trainer-header {
+      display: flex; align-items: center;
+      gap: 18px; padding: 20px 25px;
+      background: #1a1a1a;
+    }
+    .trainer-photo {
+      width: 64px; height: 64px;
+      border-radius: 50%; object-fit: cover;
+      flex-shrink: 0; border: 2px solid #333;
+    }
+    .trainer-info h4 { font-size: 20px; margin-bottom: 2px; }
+    .trainer-info p { color: #888; font-size: 14px; }
+    .trainer-tags { display: flex; gap: 6px; margin-top: 7px; flex-wrap: wrap; }
+    .trainer-tag {
+      font-size: 10px; font-weight: 800;
+      text-transform: uppercase; color: var(--accent-solid);
+      background: rgba(255,50,120,0.1);
+      padding: 3px 10px; border-radius: 999px;
+      border: 1px solid rgba(255,50,120,0.25);
+    }
+    .trainer-rating { margin-left: auto; text-align: right; flex-shrink: 0; }
+    .stars { color: #f5c518; font-size: 14px; letter-spacing: 1px; }
+    .rating-count { color: #666; font-size: 12px; margin-top: 2px; }
+
+    /* PRICING */
+    .pricing-row {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      border-top: 1px solid #222;
+    }
+    .price-tier {
+      padding: 18px 22px; border-right: 1px solid #222; position: relative;
+    }
+    .price-tier:last-child { border-right: none; }
+    .price-tier.best-value { background: rgba(255,50,120,0.05); }
+    .best-badge {
+      position: absolute; top: -1px; right: 14px;
+      background: var(--accent-solid); color: white;
+      font-size: 10px; font-weight: 800; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 0 0 8px 8px;
+      font-family: 'Barlow', sans-serif;
+    }
+    .tier-label {
+      font-size: 11px; font-weight: 800; text-transform: uppercase;
+      color: #555; margin-bottom: 6px; letter-spacing: 1px;
+    }
+    .tier-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px; font-weight: 900; color: white; margin-bottom: 2px;
+    }
+    .tier-price span { font-size: 14px; font-weight: 600; color: #666; }
+    .tier-save { font-size: 11px; color: #4CAF50; font-weight: 700; min-height: 16px; }
+    .book-btn {
+      margin-top: 10px; width: 100%; padding: 9px 0;
+      border-radius: 999px; border: 1px solid #444;
+      background: transparent; color: white;
+      font-weight: 800; font-size: 12px; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s, border-color 0.2s;
+      font-family: 'Barlow', sans-serif;
+    }
+    .book-btn:hover { background: var(--accent); border-color: transparent; }
+    .book-btn.primary-book { background: var(--accent); border-color: transparent; }
+
+    @media (max-width: 900px) {
+      .video-grid { grid-template-columns: 1fr; }
+      .video-card.main { height: 260px; }
+      .video-side { flex-direction: row; }
+      .video-card.small { height: 160px; flex: 1; }
+    }
     @media (max-width: 768px) {
-      :root { --header-height: 84px; }
-      body { padding-top: var(--header-height); }
-
-      header { padding: 14px 0; }
-      header.scrolled { padding: 10px 0; }
-
-      .nav { gap: 16px; }
-      .logo { font-size: 26px; letter-spacing: 3px; }
-
-      .btn {
-        padding: 18px 28px;
-        font-size: 12px;
-        letter-spacing: 1.6px;
-      }
-
-      .hero {
-        min-height: auto;
-        padding: 90px 0 70px;
-      }
-
-      .hero-h1 {
-        font-size: clamp(48px, 16vw, 86px);
-      }
-
-      .marquee-card {
-        width: 260px;
-        height: 340px;
-      }
-
-      .feature-img {
-        height: 320px;
-      }
-
-      .quiz-card {
-        padding: 28px 22px;
-      }
-
-      .result-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .day-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .feature-item h3 {
-        font-size: 30px;
-      }
-
-      .section-title {
-        font-size: clamp(36px, 10vw, 60px) !important;
-      }
-
-      .opt-btn {
-        padding: 20px;
-        font-size: 16px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .container { width: min(92%, 1440px); }
-
-      .hero-h1 {
-        font-size: 46px;
-      }
-
-      .btn {
-        width: 100%;
-      }
-
-      .marquee {
-        padding: 28px 0;
-      }
-
-      .marquee-content {
-        gap: 18px;
-      }
-
-      .feature-img {
-        height: 250px;
-        border-radius: 26px;
-      }
-
-      .quiz-card h3 {
-        font-size: 30px !important;
-      }
-
-      .tip-card,
-      .next-step-card,
-      .result-pill,
-      .day-card {
-        padding: 18px;
-      }
+      .quiz-container { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 60px; }
+      .pricing-row { grid-template-columns: 1fr; }
+      .price-tier { border-right: none; border-bottom: 1px solid #222; }
+      .price-tier:last-child { border-bottom: none; }
+      .trainer-rating { display: none; }
     }
   </style>
 </head>
 <body>
 
+  <!-- HEADER -->
   <header id="mainHeader">
-    <div class="container nav">
+    <nav class="nav">
       <a href="#" class="logo">FORGE<span>PEAK</span></a>
-
-      <div class="nav-menu">
-        <a href="#home">Home</a>
-        <a href="#facility">Facility</a>
-        <a href="#blueprint">Blueprint</a>
-        <a href="#quiz">Assessment</a>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <button class="btn btn-outline" id="trainerBtn">Virtual Trainer</button>
+        <a href="#quiz" class="btn btn-primary">Start Quiz</a>
       </div>
-
-      <a href="#quiz" class="btn btn-primary" style="padding: 14px 28px; font-size: 12px;">Start Now</a>
-    </div>
+    </nav>
   </header>
 
   <main>
-    <section class="hero" id="home">
-      <div class="container">
-        <div style="max-width: 900px;">
-          <h1 class="hero-h1">UNLEASH <br><span>YOUR INNER</span> ATHLETE</h1>
-          <p style="margin-bottom: 45px; max-width: 650px;">
-            A sanctuary for high-performance training. Combining elite technology with a premium boutique environment for those who refuse to settle.
-          </p>
-          <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-            <a href="#quiz" class="btn btn-primary">Start Transformation</a>
-            <a href="#facility" class="btn btn-outline">Explore Gallery</a>
-          </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <h1>BE BETTER <br><span style="color:var(--accent-solid)">EVERY DAY</span></h1>
+        <p>Elite performance coaching, recovery science, and a community that pushes you further. Join the movement.</p>
+        <div class="hero-btns">
+          <button class="btn btn-primary" id="heroTrainerBtn">View Virtual Trainers</button>
+          <a href="#quiz" class="btn btn-outline">Analyze My Fitness</a>
         </div>
       </div>
     </section>
 
-    <div class="marquee">
-      <div class="marquee-content">
-        <div class="marquee-card"><img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&q=80&w=800" alt="Smiling Trainer"></div>
-        <div class="marquee-card"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800" alt="Yoga Session"></div>
-        <div class="marquee-card"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=800" alt="Athlete"></div>
-        <div class="marquee-card"><img src="https://images.unsplash.com/photo-1550345332-09e3ac987658?auto=format&fit=crop&q=80&w=800" alt="Gym Focus"></div>
-        <div class="marquee-card"><img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&q=80&w=800" alt="Smiling Trainer"></div>
-        <div class="marquee-card"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800" alt="Yoga Session"></div>
-        <div class="marquee-card"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=800" alt="Athlete"></div>
-        <div class="marquee-card"><img src="https://images.unsplash.com/photo-1550345332-09e3ac987658?auto=format&fit=crop&q=80&w=800" alt="Gym Focus"></div>
-      </div>
-    </div>
+    <!-- VIDEO SECTION -->
+    <section class="video-section" id="videos">
+      <div class="section-label">Training Videos</div>
+      <h2 class="section-title">SEE IT IN <span style="color:var(--accent-solid)">ACTION</span></h2>
+      <div class="video-grid">
 
-    <section class="section" id="facility">
-      <div class="container">
-        <div style="text-align: center; max-width: 800px; margin: 0 auto 100px;">
-          <h2 class="section-title" style="font-size: 64px;">ENGINEERED FOR <span style="color: var(--accent-solid);">SUCCESS</span></h2>
-          <p>We’ve created a spacious, distraction-free environment where every detail—from the lighting to the flooring—is optimized for peak performance.</p>
+        <!-- Main featured video -->
+        <div class="video-card main" id="mainVideoCard">
+          <img
+            id="mainThumb"
+            src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=1200"
+            alt="HIIT Training"
+            style="width:100%;height:100%;object-fit:cover;display:block;">
+          <button class="play-btn" id="mainPlayBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <div class="video-label">Full Body HIIT · 45 Min Burn</div>
         </div>
 
-        <div class="features-grid">
-          <div class="feature-item">
-            <div class="feature-img"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=1000" alt="Strength Lab"></div>
-            <h3>Precision Strength</h3>
-            <p>Our floor features custom-engineered equipment designed for bio-mechanical efficiency. No overcrowding, just pure focus.</p>
+        <div class="video-side">
+          <!-- Side video 1 -->
+          <div class="video-card small">
+            <img
+              src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=800"
+              alt="Strength Training"
+              style="width:100%;height:100%;object-fit:cover;display:block;">
+            <button class="play-btn" onclick="openYT('https://www.youtube.com/watch?v=vc1E5CfRfos')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <div class="video-label" style="font-size:14px;">Strength · Power Building</div>
           </div>
-          <div class="feature-item">
-            <div class="feature-img"><img src="https://images.unsplash.com/photo-1606902965551-dce093cda6e7?auto=format&fit=crop&q=80&w=1000" alt="Recovery Suite"></div>
-            <h3>Intelligent Recovery</h3>
-            <p>Accelerate your results with our dedicated recovery suite, featuring infrared therapy, cold plunges, and compression tech.</p>
-          </div>
-          <div class="feature-item">
-            <div class="feature-img"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=1000" alt="Community"></div>
-            <h3>Positive Culture</h3>
-            <p>A community of high-achievers who celebrate every win. Our environment is designed to uplift and motivate you daily.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section quiz-bg" id="quiz">
-      <div class="container">
-        <div class="quiz-wrapper">
-          <div>
-            <h2 class="section-title" style="font-size: clamp(40px, 5vw, 84px); margin-bottom: 30px;">
-              GET YOUR <br><span style="color: var(--accent-solid)">BLUEPRINT</span>
-            </h2>
-            <p style="margin-bottom: 40px; font-size: 22px; line-height: 1.8;">
-              Our algorithmic assessment takes your height, weight, and goals to build a scientifically-backed training schedule tailored for your body composition.
-            </p>
-            <div style="background: var(--card); padding: 30px; border-radius: var(--radius-md); border: 1px solid var(--border);">
-              <h4 class="heading" style="color: var(--accent-solid); margin-bottom: 10px;">What you get:</h4>
-              <ul style="list-style: none; color: var(--text-dim);">
-                <li style="margin-bottom: 10px;">✓ Customized Caloric Target</li>
-                <li style="margin-bottom: 10px;">✓ 7-Day Training Split</li>
-                <li style="margin-bottom: 10px;">✓ Macro-Nutrient Ratio</li>
-                <li style="margin-bottom: 10px;">✓ Diet Guidance by Goal</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="quiz-card">
-            <div id="quizContainer">
-              <div id="progress" style="height: 4px; width: 100%; background: rgba(255,255,255,0.1); margin-bottom: 40px; border-radius: 2px; overflow: hidden;">
-                <div id="progressBar" style="height: 100%; width: 20%; background: var(--accent); transition: 0.4s;"></div>
-              </div>
-
-              <p id="stepLabel" style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-solid); margin-bottom: 15px;">Step 1 of 5</p>
-              <h3 id="questionTitle" class="heading" style="font-size: 42px; margin-bottom: 40px; line-height: 1.1;">What is your primary focus?</h3>
-
-              <div id="options"></div>
-
-              <div style="display: flex; gap: 15px; margin-top: 40px;">
-                <button class="btn btn-outline" id="prevBtn" style="flex: 1;">Back</button>
-                <button class="btn btn-primary" id="nextBtn" style="flex: 2;" disabled>Continue</button>
-              </div>
-            </div>
-
-            <div id="resultContainer" style="display: none;">
-              <h3 class="heading" style="font-size: 42px; color: var(--accent-solid); margin-bottom: 16px;">Analysis Complete</h3>
-              <p style="margin-bottom: 28px; line-height: 1.8;">
-                Your assessment is complete. Here is your personalized weekly training plan and diet direction based on your answers.
-              </p>
-
-              <div id="resultContent" style="margin-bottom: 8px;"></div>
-
-              <div class="result-actions">
-                <button class="btn btn-primary" style="width: 100%;">Claim 3-Day VIP Pass</button>
-                <button class="btn btn-outline" id="restartBtn" style="width: 100%;">Retake Assessment</button>
-              </div>
-
-              <p class="small-note">
-                Use these tips as a starting point. Adjust intensity, food choices, and recovery based on how your body feels.
-              </p>
-            </div>
+          <!-- Side video 2 -->
+          <div class="video-card small">
+            <img
+              src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&q=80&w=800"
+              alt="Yoga Recovery"
+              style="width:100%;height:100%;object-fit:cover;display:block;">
+            <button class="play-btn" onclick="openYT('https://www.youtube.com/watch?v=v7AYKMP6rOE')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <div class="video-label" style="font-size:14px;">Yoga · Recovery Flow</div>
           </div>
         </div>
+
       </div>
     </section>
-  </main>
 
-  <footer>
-    <div class="container" style="text-align: center;">
-      <a href="#" class="logo" style="margin-bottom: 40px; display: block;">FORGE<span>PEAK</span></a>
-      <div style="display: flex; justify-content: center; gap: 40px; margin-bottom: 60px; flex-wrap: wrap;">
-        <a href="#" style="color: var(--text-dim); text-decoration: none;">Instagram</a>
-        <a href="#" style="color: var(--text-dim); text-decoration: none;">YouTube</a>
-        <a href="#" style="color: var(--text-dim); text-decoration: none;">Privacy Policy</a>
-      </div>
-      <p style="font-size: 14px;">&copy; 2026 FORGEPEAK GYM. DEVELOPED FOR THE ELITE.</p>
-    </div>
-  </footer>
-
-  <script>
-    const questions = [
-      { q: "What is your primary fitness goal?", a: ["Fat Loss", "Muscle Gain", "Body Recomp", "Athletic Power"] },
-      { q: "What is your current Height?", a: ["Below 165cm", "165 - 180cm", "180 - 195cm", "Above 195cm"] },
-      { q: "What is your current Weight?", a: ["Below 70kg", "70 - 90kg", "90 - 110kg", "Above 110kg"] },
-      { q: "How many sessions per week?", a: ["1-2 Days", "3-4 Days", "5+ Days", "Athlete Mode"] },
-      { q: "Current diet style?", a: ["Standard", "High Protein", "Vegan/Veg", "Keto/Paleo"] }
-    ];
-
-    let step = 0;
-    let answers = Array(5).fill("");
-
-    function renderQuiz() {
-      const q = questions[step];
-      document.getElementById("stepLabel").innerText = `Step ${step + 1} of 5`;
-      document.getElementById("progressBar").style.width = ((step + 1) / 5) * 100 + "%";
-      document.getElementById("questionTitle").innerText = q.q;
-
-      const optionsBox = document.getElementById("options");
-      optionsBox.innerHTML = "";
-
-      q.a.forEach(opt => {
-        const btn = document.createElement("button");
-        btn.className = "opt-btn" + (answers[step] === opt ? " active" : "");
-        btn.innerText = opt;
-        btn.onclick = () => {
-          answers[step] = opt;
-          renderQuiz();
-          document.getElementById("nextBtn").disabled = false;
-        };
-        optionsBox.appendChild(btn);
-      });
-
-      document.getElementById("prevBtn").disabled = step === 0;
-      document.getElementById("nextBtn").innerText = step === 4 ? "Generate Blueprint" : "Continue";
-      document.getElementById("nextBtn").disabled = !answers[step];
-    }
-
-    function getTrainingPlan(goal, sessions) {
-      const plans = {
-        "Fat Loss": [
-          "Day 1: Full body strength + 15 min incline walk",
-          "Day 2: Core + light cardio + mobility",
-          "Day 3: Upper body push focus",
-          "Day 4: Active recovery and walking",
-          "Day 5: Lower body strength",
-          "Day 6: Conditioning circuit + abs",
-          "Day 7: Full rest and recovery"
-        ],
-        "Muscle Gain": [
-          "Day 1: Chest + triceps",
-          "Day 2: Back + biceps",
-          "Day 3: Legs",
-          "Day 4: Shoulders + core",
-          "Day 5: Upper body hypertrophy",
-          "Day 6: Arms + weak-point training",
-          "Day 7: Recovery and stretching"
-        ],
-        "Body Recomp": [
-          "Day 1: Upper body strength",
-          "Day 2: Lower body strength",
-          "Day 3: Zone 2 cardio + mobility",
-          "Day 4: Push focus + core",
-          "Day 5: Pull focus + abs",
-          "Day 6: Full body conditioning",
-          "Day 7: Rest and long walk"
-        ],
-        "Athletic Power": [
-          "Day 1: Lower body power",
-          "Day 2: Sprint and agility work",
-          "Day 3: Upper body strength",
-          "Day 4: Mobility and recovery",
-          "Day 5: Explosive full body training",
-          "Day 6: Conditioning and core",
-          "Day 7: Rest and reset"
-        ]
-      };
-
-      let plan = plans[goal] || plans["Body Recomp"];
-
-      if (sessions === "1-2 Days") {
-        plan = [
-          "Day 1: Full body strength",
-          "Day 2: Light cardio + mobility",
-          "Day 3: Rest",
-          "Day 4: Walk and stretch",
-          "Day 5: Full body strength",
-          "Day 6: Active recovery",
-          "Day 7: Rest"
-        ];
-      } else if (sessions === "5+ Days" || sessions === "Athlete Mode") {
-        plan = [
-          "Day 1: Push training",
-          "Day 2: Pull training",
-          "Day 3: Legs",
-          "Day 4: Conditioning + mobility",
-          "Day 5: Upper body hypertrophy",
-          "Day 6: Explosive work + core",
-          "Day 7: Full recovery"
-        ];
-      }
-
-      return plan;
-    }
-
-    function getDietTips(goal, dietStyle) {
-      const tips = {
-        "Fat Loss": [
-          "Keep every meal protein-heavy and portion-controlled.",
-          "Use vegetables, dal, eggs, paneer, chicken, fish, curd, and fruit.",
-          "Cut sugary drinks, fried snacks, and late-night overeating.",
-          "Drink enough water through the day."
-        ],
-        "Muscle Gain": [
-          "Eat enough calories and include protein in every meal.",
-          "Use rice, oats, potatoes, banana, nuts, paneer, chicken, and whey if needed.",
-          "Do not skip post-workout food.",
-          "Keep meals regular and simple."
-        ],
-        "Body Recomp": [
-          "Keep protein high and carbs moderate.",
-          "Focus on whole foods instead of ultra-processed snacks.",
-          "Eat around workouts for better performance and recovery.",
-          "Track portions and stay consistent."
-        ],
-        "Athletic Power": [
-          "Fuel training with carbs before sessions and protein after sessions.",
-          "Stay hydrated and use electrolytes if workouts are intense.",
-          "Keep meals clean and avoid heavy junk food before training.",
-          "Choose foods that digest easily."
-        ]
-      };
-
-      let diet = tips[goal] || tips["Body Recomp"];
-
-      if (dietStyle === "High Protein") {
-        diet = [
-          "Protein should appear in every meal.",
-          "Use eggs, paneer, curd, chicken, fish, soy, dal, and whey.",
-          "Add vegetables and controlled carbs for balance.",
-          "Keep snacks protein-based too."
-        ];
-      } else if (dietStyle === "Vegan/Veg") {
-        diet = [
-          "Use soy, tofu, dal, chana, rajma, sprouts, peanuts, and seeds.",
-          "Combine legumes with grains for better meal quality.",
-          "Eat enough calories so energy stays stable.",
-          "Include fruits and vegetables daily."
-        ];
-      } else if (dietStyle === "Keto/Paleo") {
-        diet = [
-          "Keep carbs lower and focus on protein, fat, and vegetables.",
-          "Choose eggs, paneer, meat, fish, nuts, avocado, and seeds.",
-          "Avoid sugar-heavy sauces and packaged snacks.",
-          "Watch energy levels during training."
-        ];
-      }
-
-      return diet;
-    }
-
-    function showResults() {
-      document.getElementById("quizContainer").style.display = "none";
-      document.getElementById("resultContainer").style.display = "block";
-
-      const goal = answers[0] || "Body Recomp";
-      const height = answers[1] || "Not selected";
-      const weight = answers[2] || "Not selected";
-      const sessions = answers[3] || "Not selected";
-      const diet = answers[4] || "Standard";
-
-      const trainingPlan = getTrainingPlan(goal, sessions);
-      const dietTips = getDietTips(goal, diet);
-
-      const content = document.getElementById("resultContent");
-      content.innerHTML = `
-        <div class="result-grid">
-          <div class="result-pill">
-            <p>Goal Strategy</p>
-            <strong>${goal}</strong>
-          </div>
-          <div class="result-pill">
-            <p>Training Volume</p>
-            <strong>${sessions}</strong>
-          </div>
-          <div class="result-pill">
-            <p>Height Profile</p>
-            <strong>${height}</strong>
-          </div>
-          <div class="result-pill">
-            <p>Weight Profile</p>
-            <strong>${weight}</strong>
-          </div>
-        </div>
-
-        <div class="next-step-card">
-          <h4 class="heading" style="color: white;">Your next move</h4>
-          <p>
-            Based on your answers, your plan should focus on <strong style="color:white;">${goal.toLowerCase()}</strong>
-            with training frequency set to <strong style="color:white;">${sessions}</strong> and diet style around
-            <strong style="color:white;">${diet}</strong>.
-          </p>
-        </div>
-
-        <div class="tip-grid">
-          <div class="tip-card">
-            <div class="tip-label">Training Plan</div>
-            <h4>Day 1 to Day 7</h4>
-            <div class="day-grid">
-              ${trainingPlan.map((item, index) => {
-                const dayName = `Day ${index + 1}`;
-                const text = item.replace(/^Day \d+:\s*/i, "");
-                return `
-                  <div class="day-card">
-                    <h5>${dayName}</h5>
-                    <p>${text}</p>
-                  </div>
-                `;
-              }).join("")}
-            </div>
-          </div>
-
-          <div class="tip-card">
-            <div class="tip-label">Diet Tips</div>
-            <h4>What to do in diet</h4>
-            <ul class="tip-list">
-              ${dietTips.map(tip => `<li>${tip}</li>`).join("")}
+    <!-- QUIZ SECTION -->
+    <section class="quiz-section" id="quiz">
+      <div class="quiz-container">
+        <div>
+          <h2 style="font-size:50px;margin-bottom:20px;">YOUR 7-DAY <br><span style="color:var(--accent-solid)">BLUEPRINT</span></h2>
+          <p style="color:#888;margin-bottom:30px;">Complete our fitness assessment to receive a detailed workout and nutrition plan designed specifically for your biometrics.</p>
+          <div style="background:#111;padding:25px;border-radius:20px;border:1px solid #222;">
+            <p style="color:var(--accent-solid);font-weight:800;font-size:12px;text-transform:uppercase;">Included in result:</p>
+            <ul style="list-style:none;margin-top:15px;font-weight:600;">
+              <li style="margin-bottom:10px;">• Daily Workout Routine</li>
+              <li style="margin-bottom:10px;">• Calorie & Macro Breakdown</li>
+              <li style="margin-bottom:10px;">• Recovery Schedule</li>
             </ul>
           </div>
+          <img
+            src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?auto=format&fit=crop&q=80&w=800"
+            alt="Elite Coach"
+            style="width:100%;border-radius:20px;margin-top:30px;object-fit:cover;height:220px;display:block;">
         </div>
+        <div class="quiz-card">
+          <div id="quiz-ui">
+            <div style="background:#333;height:4px;margin-bottom:30px;border-radius:2px;">
+              <div id="progress-bar" style="background:var(--accent-solid);width:25%;height:100%;transition:width 0.3s;border-radius:2px;"></div>
+            </div>
+            <p id="q-step" style="font-size:12px;color:var(--accent-solid);font-weight:800;margin-bottom:10px;">STEP 1 OF 4</p>
+            <h3 id="q-title" style="font-size:32px;margin-bottom:30px;">What is your goal?</h3>
+            <div id="q-options"></div>
+            <div style="margin-top:30px;display:flex;gap:10px;">
+              <button class="btn btn-outline" id="prev-btn" style="flex:1;">Back</button>
+              <button class="btn btn-primary" id="next-btn" style="flex:2;" disabled>Next Step</button>
+            </div>
+          </div>
+          <div id="result-ui" style="display:none;">
+            <h3 style="color:var(--accent-solid);font-size:32px;margin-bottom:10px;">PLAN READY</h3>
+            <div id="plan-summary" style="background:#222;padding:15px;border-radius:12px;margin-bottom:20px;"></div>
+            <div class="plan-grid" id="7-day-plan"></div>
+            <button class="btn btn-primary" onclick="location.reload()" style="width:100%;margin-top:25px;">Retake Quiz</button>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <div class="next-step-card">
-          <h4 class="heading" style="color: white;">Simple daily structure</h4>
-          <ul class="tip-list" style="margin-top: 0;">
-            <li>Train with consistency and track progress weekly.</li>
-            <li>Keep protein in every main meal.</li>
-            <li>Sleep well and recover properly between sessions.</li>
-          </ul>
+  </main>
+
+  <!-- VIRTUAL TRAINER MODAL -->
+  <div class="modal-overlay" id="trainerModal">
+    <div class="modal-box">
+      <button class="close-modal" id="closeModal">&times;</button>
+      <h2 style="font-size:40px;margin-bottom:6px;">VIRTUAL <span style="color:var(--accent-solid)">COACHES</span></h2>
+      <p style="color:#666;margin-bottom:35px;font-size:15px;">Choose your coach and pick a plan that works for you.</p>
+      <div id="trainer-list"></div>
+    </div>
+  </div>
+
+  <script>
+    // DATA
+    const questions = [
+      { q:"What is your primary goal?",  a:["Fat Loss","Muscle Gain","Endurance","Flexibility"] },
+      { q:"Current Activity Level?",     a:["Sedentary","1-2 Days/Week","3-5 Days/Week","Pro Athlete"] },
+      { q:"What's your preferred diet?", a:["No Preference","Vegetarian","Vegan","High Protein"] },
+      { q:"Daily focus time?",           a:["Under 30 mins","45-60 mins","90+ mins"] }
+    ];
+
+    const trainers = [
+      {
+        name:"Arjun Kapoor", role:"Strength & Hypertrophy Coach",
+        photo:"https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?auto=format&fit=crop&q=80&w=200",
+        tags:["Powerlifting","Hypertrophy"], rating:"4.9", reviews:"312",
+        pricing:{
+          week: { price:"₹999",    save:"" },
+          month:{ price:"₹2,999",  save:"Save ₹997" },
+          year: { price:"₹24,999", save:"Save ₹11,989" }
+        }
+      },
+      {
+        name:"Priya Nair", role:"Yoga & Mobility Specialist",
+        photo:"https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&q=80&w=200",
+        tags:["Yoga","Flexibility","Mindfulness"], rating:"4.8", reviews:"278",
+        pricing:{
+          week: { price:"₹799",    save:"" },
+          month:{ price:"₹1,999",  save:"Save ₹597" },
+          year: { price:"₹17,999", save:"Save ₹7,589" }
+        }
+      },
+      {
+        name:"Vikram Rathore", role:"HIIT & Fat Loss Expert",
+        photo:"https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?auto=format&fit=crop&q=80&w=200",
+        tags:["HIIT","Cardio","Fat Loss"], rating:"4.9", reviews:"445",
+        pricing:{
+          week: { price:"₹899",    save:"" },
+          month:{ price:"₹2,499",  save:"Save ₹797" },
+          year: { price:"₹21,499", save:"Save ₹9,289" }
+        }
+      },
+      {
+        name:"Sanya Mehta", role:"Nutrition & Body Transformation",
+        photo:"https://images.unsplash.com/photo-1609899537878-48b6a5c74c71?auto=format&fit=crop&q=80&w=200",
+        tags:["Nutrition","Body Recomp"], rating:"4.7", reviews:"198",
+        pricing:{
+          week: { price:"₹1,199",  save:"" },
+          month:{ price:"₹3,499",  save:"Save ₹1,297" },
+          year: { price:"₹29,999", save:"Save ₹14,389" }
+        }
+      },
+      {
+        name:"Rahul Desai", role:"Functional Fitness & Endurance",
+        photo:"https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=200",
+        tags:["Endurance","Functional","Running"], rating:"4.8", reviews:"224",
+        pricing:{
+          week: { price:"₹849",    save:"" },
+          month:{ price:"₹2,299",  save:"Save ₹797" },
+          year: { price:"₹19,999", save:"Save ₹8,189" }
+        }
+      }
+    ];
+
+    // MODAL
+    function buildTrainerList() {
+      document.getElementById('trainer-list').innerHTML = trainers.map(t => `
+        <div class="trainer-wrapper">
+          <div class="trainer-header">
+            <img src="${t.photo}" alt="${t.name}" class="trainer-photo">
+            <div class="trainer-info">
+              <h4>${t.name}</h4>
+              <p>${t.role}</p>
+              <div class="trainer-tags">
+                ${t.tags.map(tag=>`<span class="trainer-tag">${tag}</span>`).join('')}
+              </div>
+            </div>
+            <div class="trainer-rating">
+              <div class="stars">★★★★★</div>
+              <div style="font-weight:800;font-size:16px;margin-top:3px;">${t.rating}</div>
+              <div class="rating-count">${t.reviews} reviews</div>
+            </div>
+          </div>
+          <div class="pricing-row">
+            <div class="price-tier">
+              <div class="tier-label">1 Week</div>
+              <div class="tier-price">${t.pricing.week.price} <span>/ week</span></div>
+              <div class="tier-save">&nbsp;</div>
+              <button class="book-btn">Book Trial</button>
+            </div>
+            <div class="price-tier best-value">
+              <div class="best-badge">Best Value</div>
+              <div class="tier-label">1 Month</div>
+              <div class="tier-price">${t.pricing.month.price} <span>/ month</span></div>
+              <div class="tier-save">${t.pricing.month.save}</div>
+              <button class="book-btn primary-book">Book Now</button>
+            </div>
+            <div class="price-tier">
+              <div class="tier-label">1 Year</div>
+              <div class="tier-price">${t.pricing.year.price} <span>/ year</span></div>
+              <div class="tier-save">${t.pricing.year.save}</div>
+              <button class="book-btn">Book Annual</button>
+            </div>
+          </div>
         </div>
-      `;
+      `).join('');
     }
 
-    document.getElementById("nextBtn").onclick = () => {
-      if (step < 4) {
-        step++;
-        renderQuiz();
-      } else {
-        showResults();
-      }
-    };
+    function openModal() {
+      buildTrainerList();
+      document.getElementById('trainerModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModalFn() {
+      document.getElementById('trainerModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
 
-    document.getElementById("prevBtn").onclick = () => {
-      if (step > 0) {
-        step--;
-        renderQuiz();
-      }
-    };
-
-    document.getElementById("restartBtn").onclick = () => {
-      step = 0;
-      answers = Array(5).fill("");
-      document.getElementById("quizContainer").style.display = "block";
-      document.getElementById("resultContainer").style.display = "none";
-      renderQuiz();
-    };
-
-    window.addEventListener("scroll", () => {
-      const header = document.getElementById("mainHeader");
-      if (window.scrollY > 50) header.classList.add("scrolled");
-      else header.classList.remove("scrolled");
+    document.getElementById('trainerBtn').addEventListener('click', openModal);
+    document.getElementById('heroTrainerBtn').addEventListener('click', openModal);
+    document.getElementById('closeModal').addEventListener('click', closeModalFn);
+    document.getElementById('trainerModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModalFn();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModalFn();
     });
 
-    renderQuiz();
+    // VIDEO HELPERS
+    document.getElementById('mainPlayBtn').addEventListener('click', function() {
+      const card = document.getElementById('mainVideoCard');
+      const thumb = document.getElementById('mainThumb');
+      const btn = this;
+      // Replace image with an embedded YouTube iframe on click
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube.com/embed/ml6cT4AZdqI?autoplay=1';
+      iframe.style.cssText = 'width:100%;height:100%;border:none;display:block;position:absolute;inset:0;';
+      iframe.allow = 'autoplay; fullscreen';
+      card.style.position = 'relative';
+      thumb.style.display = 'none';
+      btn.style.display = 'none';
+      card.querySelector('.video-label').style.display = 'none';
+      card.appendChild(iframe);
+    });
+
+    function openYT(url) { window.open(url, '_blank'); }
+
+    // QUIZ
+    let currentStep = 0, answers = [];
+
+    function updateQuiz() {
+      const q = questions[currentStep];
+      document.getElementById('q-step').innerText = `STEP ${currentStep+1} OF ${questions.length}`;
+      document.getElementById('q-title').innerText = q.q;
+      document.getElementById('progress-bar').style.width = `${((currentStep+1)/questions.length)*100}%`;
+      document.getElementById('q-options').innerHTML = q.a.map(opt =>
+        `<button class="opt-btn ${answers[currentStep]===opt?'active':''}" onclick="selectOpt('${opt}')">${opt}</button>`
+      ).join('');
+      document.getElementById('next-btn').disabled = !answers[currentStep];
+      document.getElementById('prev-btn').style.visibility = currentStep===0 ? 'hidden' : 'visible';
+      document.getElementById('next-btn').innerText = currentStep===questions.length-1 ? 'Get My Plan' : 'Next Step';
+    }
+
+    window.selectOpt = val => { answers[currentStep]=val; updateQuiz(); };
+
+    document.getElementById('next-btn').addEventListener('click', () => {
+      if (currentStep < questions.length-1) { currentStep++; updateQuiz(); }
+      else generatePlan();
+    });
+    document.getElementById('prev-btn').addEventListener('click', () => { currentStep--; updateQuiz(); });
+
+    function generatePlan() {
+      document.getElementById('quiz-ui').style.display = 'none';
+      document.getElementById('result-ui').style.display = 'block';
+      const goal = answers[0], diet = answers[2];
+      const workouts = {
+        "Fat Loss":    ["HIIT Cardio","Lower Body Power","Active Recovery","Upper Body Circuit","Core & Cardio","Full Body Burn","Rest & Stretch"],
+        "Muscle Gain": ["Heavy Chest/Tris","Back/Bis Hypertrophy","Heavy Legs","Shoulders/Abs","Rest","Full Body Strength","Rest"],
+        "Endurance":   ["30m Easy Run","Tempo Training","Yoga","Interval Sprints","Full Body Mobility","Long Distance Run","Rest"],
+        "Flexibility": ["Yoga Flow","Hip Mobility","Foam Rolling","Stretch Circuit","Pilates","Active Recovery","Rest"]
+      };
+      const dietTips = {
+        "High Protein":  "Focus on 1.8g protein/kg body weight. Include chicken, paneer, or whey.",
+        "Vegetarian":    "Prioritize Dal, Soya & Greek Yogurt. Aim for 2200 kcal.",
+        "Vegan":         "Use tofu, tempeh & lentils. Supplement B12 and D3.",
+        "No Preference": "Balanced 40/30/30 macro split. Stay hydrated (3L+ water daily)."
+      };
+      const plan = workouts[goal] || workouts["Fat Loss"];
+      document.getElementById('plan-summary').innerHTML = `
+        <p><strong>Focus:</strong> ${goal}</p>
+        <p style="font-size:13px;color:#aaa;margin-top:5px;">${dietTips[diet]||dietTips["No Preference"]}</p>
+      `;
+      document.getElementById('7-day-plan').innerHTML = plan.map((ex,i) => `
+        <div class="day-box">
+          <h5>DAY 0${i+1}</h5>
+          <p>${ex}</p>
+        </div>
+      `).join('');
+    }
+
+    // HEADER SCROLL
+    window.addEventListener('scroll', () => {
+      document.getElementById('mainHeader').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    updateQuiz();
   </script>
 </body>
 </html>
